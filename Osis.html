@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSIS Sekolah - Organisasi Siswa Intra Sekolah</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset dan Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --secondary-light: #34495e;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --text: #333;
+            --text-light: #777;
+            --white: #ffffff;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 0.7rem 0;
+            background-color: rgba(44, 62, 80, 0.95);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 45px;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.8rem;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.85), rgba(52, 73, 94, 0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--white);
+            padding: 10rem 0 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+
+        .hero-buttons {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s ease 0.4s forwards;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-instagram {
+            background-color: #e4405f;
+            margin-left: 15px;
+        }
+
+        .btn-instagram:hover {
+            background-color: #c13584;
+            box-shadow: 0 6px 15px rgba(228, 64, 95, 0.4);
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--white);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .about-text p {
+            margin-bottom: 1.2rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transform: translateX(20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .about-image.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Structure Section */
+        .structure {
+            background-color: var(--light);
+            position: relative;
+        }
+
+        .structure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .structure-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .structure-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .structure-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .structure-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .structure-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .structure-card:hover .structure-img img {
+            transform: scale(1.1);
+        }
+
+        .structure-info {
+            padding: 1.8rem;
+        }
+
+        .structure-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .structure-info p {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .structure-info span {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .structure-detail-btn {
+            margin-top: 1rem;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .structure-detail-btn:hover {
+            background-color: var(--primary);
+        }
+
+        /* Programs Section */
+        .programs {
+            background-color: var(--white);
+            position: relative;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .program-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .program-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .program-card:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-10px);
+        }
+
+        .program-card i {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .program-card:hover i {
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        .program-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .program-card p {
+            transition: var(--transition);
+        }
+
+        /* Instagram Section */
+        .instagram {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .instagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .instagram .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .instagram h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .instagram p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .instagram-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--white);
+            color: #e4405f;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .instagram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .instagram-btn i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 4rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            margin-bottom: 1.2rem;
+            color: #ddd;
+            line-height: 1.7;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-column ul li a i {
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .scroll-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1100;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        .modal-title {
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .modal-subtitle {
+            margin: 2rem 0 1rem;
+            color: var(--primary);
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.5rem;
+        }
+
+        .department-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .department-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .department-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .department-card h4 {
+            color: var(--secondary);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .department-card p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1100px) {
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background-color: var(--secondary);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 3rem;
+                transition: var(--transition);
+                box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+
+            nav ul.active {
+                left: 0;
+            }
+
+            nav ul li {
+                margin: 1.2rem 0;
+            }
+
+            .hero {
+                padding: 8rem 0 4rem;
+                background-attachment: scroll;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.95rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .instagram h2 {
+                font-size: 2.2rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo h1 {
+                font-size: 1.3rem;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .hero {
+                padding: 7rem 0 3rem;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .btn {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+                max-width: 250px;
+            }
+
+            .btn-instagram {
+                margin-left: 0;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .about-text h3 {
+                font-size: 1.5rem;
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .instagram h2 {
+                font-size: 1.8rem;
+            }
+
+            .instagram-btn {
+                padding: 0.9rem 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .department-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/512/3714/3714975.png" alt="Logo OSIS">
+                <h1>OSIS <span>SEKOLAH</span></h1>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#about">Tentang</a></li>
+                    <li><a href="#structure">Struktur</a></li>
+                    <li><a href="#programs">Program</a></li>
+                    <li><a href="#instagram">Instagram</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Organisasi Siswa Intra Sekolah</h2>
+                <p>Wadah bagi siswa untuk mengembangkan bakat, kreativitas, dan kepemimpinan dalam lingkungan sekolah yang positif dan inspiratif.</p>
+                <div class="hero-buttons">
+                    <a href="#about" class="btn">Pelajari Lebih Lanjut</a>
+                    <a href="#instagram" class="btn btn-instagram">Ikuti Instagram Kami</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tentang OSIS</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Organisasi Siswa Intra Sekolah</h3>
+                    <p>OSIS adalah suatu organisasi yang berada di tingkat sekolah di Indonesia yang dimulai dari Sekolah Menengah yaitu Sekolah Menengah Pertama (SMP) dan Sekolah Menengah Atas (SMA). OSIS diurus dan dikelola oleh murid-murid yang terpilih untuk menjadi pengurus OSIS.</p>
+                    <p>Biasanya organisasi ini memiliki seorang pembimbing (guru) yang dipilih oleh pihak sekolah. Anggota OSIS adalah seluruh siswa yang berada pada satu sekolah tempat OSIS itu berada.</p>
+                    <p>OSIS memiliki program kerja yang bertujuan untuk meningkatkan kualitas siswa di bidang akademik dan non-akademik, serta membangun karakter kepemimpinan dan tanggung jawab.</p>
+                </div>
+                <div class="about-image" id="aboutImage">
+                    <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&auto=format&fit=crop&w=1472&q=80" alt="Kegiatan OSIS">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Structure Section -->
+    <section class="structure" id="structure">
+        <div class="container">
+            <div class="section-title">
+                <h2>Struktur Organisasi</h2>
+            </div>
+            <div class="structure-grid">
+                <div class="structure-card" id="card1">
+                    <div class="structure-img">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Ketua OSIS">
+                    </div>
+                    <div class="structure-info">
+                        <h3>Andi Pratama</h3>
+                        <p>Ketua OSIS</p>
+                        <span>Kelas XII IPA 1</span>
+                        <button class="structure-detail-btn" onclick="openStructureModal()">Lihat Struktur Lengkap</button>
+                    </div>
+                </div>
+                <div class="structure-card" id="card2">
+                    <div class="structure-img">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Wakil Ketua OSIS">
+                    </div>
+                    <div class="structure-info">
+                        <h3>Sari Indah</h3>
+                        <p>Wakil Ketua OSIS</p>
+                        <span>Kelas XII IPS 2</span>
+                        <button class="structure-detail-btn" onclick="openStructureModal()">Lihat Struktur Lengkap</button>
+                    </div>
+                </div>
+                <div class="structure-card" id="card3">
+                    <div class="structure-img">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Sekretaris OSIS">
+                    </div>
+                    <div class="structure-info">
+                        <h3>Rizki Maulana</h3>
+                        <p>Sekretaris</p>
+                        <span>Kelas XI IPA 3</span>
+                        <button class="structure-detail-btn" onclick="openStructureModal()">Lihat Struktur Lengkap</button>
+                    </div>
+                </div>
+                <div class="structure-card" id="card4">
+                    <div class="structure-img">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=764&q=80" alt="Bendahara OSIS">
+                    </div>
+                    <div class="structure-info">
+                        <h3>Dewi Lestari</h3>
+                        <p>Bendahara</p>
+                        <span>Kelas XI IPS 1</span>
+                        <button class="structure-detail-btn" onclick="openStructureModal()">Lihat Struktur Lengkap</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs" id="programs">
+        <div class="container">
+            <div class="section-title">
+                <h2>Program Kerja</h2>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card" id="program1">
+                    <i class="fas fa-users"></i>
+                    <h3>Kepemimpinan</h3>
+                    <p>Program pelatihan kepemimpinan untuk mengembangkan kemampuan memimpin dan berorganisasi.</p>
+                </div>
+                <div class="program-card" id="program2">
+                    <i class="fas fa-book"></i>
+                    <h3>Akademik</h3>
+                    <p>Kegiatan bimbingan belajar dan olimpiade sains untuk meningkatkan prestasi akademik.</p>
+                </div>
+                <div class="program-card" id="program3">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Seni & Budaya</h3>
+                    <p>Pengembangan bakat seni melalui berbagai kegiatan ekstrakurikuler dan pentas seni.</p>
+                </div>
+                <div class="program-card" id="program4">
+                    <i class="fas fa-heart"></i>
+                    <h3>Sosial</h3>
+                    <p>Aksi sosial dan bakti masyarakat untuk menumbuhkan kepedulian terhadap lingkungan.</p>
+                </div>
+                <div class="program-card" id="program5">
+                    <i class="fas fa-futbol"></i>
+                    <h3>Olahraga</h3>
+                    <p>Pengembangan bakat olahraga melalui turnamen dan latihan rutin berbagai cabang olahraga.</p>
+                </div>
+                <div class="program-card" id="program6">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Lingkungan</h3>
+                    <p>Program penghijauan dan pelestarian lingkungan sekolah serta sekitar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Section -->
+    <section class="instagram" id="instagram">
+        <div class="container">
+            <h2>Ikuti Kegiatan Kami di Instagram</h2>
+            <p>Dapatkan update terbaru tentang kegiatan OSIS, foto-foto kegiatan, dan informasi penting lainnya melalui Instagram kami.</p>
+            <a href="https://instagram.com/osis_sekolah" target="_blank" class="instagram-btn">
+                <i class="fab fa-instagram"></i> Follow @osis_sekolah
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tentang Kami</h3>
+                    <p>OSIS Sekolah adalah organisasi siswa intra sekolah yang bertujuan untuk mengembangkan potensi siswa dalam berbagai bidang.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/osis_sekolah" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Link Cepat</h3>
+                    <ul>
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> Tentang OSIS</a></li>
+                        <li><a href="#structure"><i class="fas fa-chevron-right"></i> Struktur Organisasi</a></li>
+                        <li><a href="#programs"><i class="fas fa-chevron-right"></i> Program Kerja</a></li>
+                        <li><a href="#instagram"><i class="fas fa-chevron-right"></i> Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontak Kami</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Jl. Pendidikan No. 123, Jakarta</p>
+                    <p><i class="fas fa-phone"></i> (021) 1234-5678</p>
+                    <p><i class="fas fa-envelope"></i> osis@sekolah.sch.id</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 OSIS Sekolah. Semua Hak Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Structure Modal -->
+    <div class="modal" id="structureModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeStructureModal()">&times;</span>
+            <h2 class="modal-title">Struktur Organisasi OSIS Lengkap</h2>
+            
+            <h3 class="modal-subtitle">Pengurus Inti</h3>
+            <div class="department-grid">
+                <div class="department-card">
+                    <h4>Ketua OSIS</h4>
+                    <p>Andi Pratama</p>
+                    <p>XII IPA 1</p>
+                </div>
+                <div class="department-card">
+                    <h4>Wakil Ketua OSIS</h4>
+                    <p>Sari Indah</p>
+                    <p>XII IPS 2</p>
+                </div>
+                <div class="department-card">
+                    <h4>Sekretaris 1</h4>
+                    <p>Rizki Maulana</p>
+                    <p>XI IPA 3</p>
+                </div>
+                <div class="department-card">
+                    <h4>Sekretaris 2</h4>
+                    <p>Maya Sari</p>
+                    <p>XI IPS 1</p>
+                </div>
+                <div class="department-card">
+                    <h4>Bendahara 1</h4>
+                    <p>Dewi Lestari</p>
+                    <p>XI IPS 1</p>
+                </div>
+                <div class="department-card">
+                    <h4>Bendahara 2</h4>
+                    <p>Fajar Nugroho</p>
+                    <p>X IPA 2</p>
+                </div>
+            </div>
+            
+            <h3 class="modal-subtitle">Seksi-Seksi</h3>
+            <div class="department-grid">
+                <div class="department-card">
+                    <h4>Seksi Pembinaan Keagamaan</h4>
+                    <p>Koordinator: Ahmad Fauzi</p>
+                    <p>Anggota: 5 orang</p>
+                </div>
+                <div class="department-card">
+                    <h4>Seksi Pembinaan Budi Pekerti</h4>
+                    <p>Koordinator: Sinta Dewi</p>
+                    <p>Anggota: 4 orang</p>
+                </div>
+                <div class="department-card">
+                    <h4>Seksi Pendidikan & Pelatihan</h4>
+                    <p>Koordinator: Budi Santoso</p>
+                    <p>Anggota: 6 orang</p>
+                </div>
+                <div class="department-card">
+                    <h4>Seksi Kewirausahaan</h4>
+                    <p>Koordinator: Rina Wijaya</p>
+                    <p>Anggota: 5 orang</p>
+                </div>
+                <div class="department-card">
+                    <h4>Seksi Seni & Budaya</h4>
+                    <p>Koordinator: Dinda Ayu</p>
+                    <p>Anggota: 8 orang</p>
+                </div>
+                <div class="department-card">
+                    <h4>Seksi Olahraga</h4>
+                    <p>Koordinator: Arif Rahman</p>
+                    <p>Anggota: 7 orang</p>
+                </div>
+                <div class="department-card">
+                    <h4>Seksi Teknologi Informasi</h4>
+                    <p>Koordinator: Rizky Pratama</p>
+                    <p>Anggota: 4 orang</p>
+                </div>
+                <div class="department-card">
+                    <h4>Seksi Humas & Publikasi</h4>
+                    <p>Koordinator: Maya Sari</p>
+                    <p>Anggota: 5 orang</p>
+                </div>
+                <div class="department-card">
+                    <h4>Seksi Lingkungan Hidup</h4>
+                    <p>Koordinator: Surya Adi</p>
+                    <p>Anggota: 6 orang</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to top button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('active');
+            } else {
+                scrollToTopBtn.classList.remove('active');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Structure Modal Functions
+        function openStructureModal() {
+            document.getElementById('structureModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeStructureModal() {
+            document.getElementById('structureModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('structureModal');
+            if (event.target === modal) {
+                closeStructureModal();
+            }
+        });
+
+        // Scroll animation for elements
+        function checkVisibility() {
+            const aboutImage = document.getElementById('aboutImage');
+            const structureCards = [
+                document.getElementById('card1'),
+                document.getElementById('card2'),
+                document.getElementById('card3'),
+                document.getElementById('card4')
+            ];
+            const programCards = [
+                document.getElementById('program1'),
+                document.getElementById('program2'),
+                document.getElementById('program3'),
+                document.getElementById('program4'),
+                document.getElementById('program5'),
+                document.getElementById('program6')
+            ];
+            
+            // About image animation
+            if (isElementInViewport(aboutImage)) {
+                aboutImage.classList.add('visible');
+            }
+            
+            // Structure cards animation
+            structureCards.forEach((card, index) => {
+                if (card && isElementInViewport(card)) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 200);
+                }
+            });
+            
+            // Program cards animation
+            programCards.forEach((card, index) => {
+                if (card && isElementInViewport(card)) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 150);
+                }
+            });
+        }
+        
+        function isElementInViewport(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+        
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
+        window.addEventListener('resize', checkVisibility);
+    </script>
+</body>
+                      </html>
